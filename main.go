@@ -41,11 +41,11 @@ func main() {
 
 func Add(c *cli.Context) error {
 	cmd := exec.Command("git", "add", ".")
-	out, err := cmd.Output()
+	_, err := cmd.Output()
 	if err != nil {
 		return err
 	}
-	fmt.Printf("*** DONE *** \n %s \n", out)
+	fmt.Printf("*** DONE *** \n")
 	return nil
 }
 
@@ -65,10 +65,10 @@ func Commit(c *cli.Context) error {
 
 func Push(c *cli.Context) error {
 	cmd := exec.Command("git", "push")
-	out, err := cmd.Output()
+	_, err := cmd.Output()
 	if err != nil {
 		return err
 	}
-	fmt.Printf("*** DONE *** \n %s \n", out)
+	fmt.Printf("*** DONE *** \n")
 	return nil
 }
