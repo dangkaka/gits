@@ -51,6 +51,7 @@ func Pull(c *cli.Context) error {
 	cmd := exec.Command("git", "pull")
 	_, err := cmd.Output()
 	if err != nil {
+		fmt.Printf("*** FAILED ***")
 		return err
 	}
 	fmt.Printf("*** DONE *** \n")
@@ -61,6 +62,7 @@ func Add(c *cli.Context) error {
 	cmd := exec.Command("git", "add", ".")
 	_, err := cmd.Output()
 	if err != nil {
+		fmt.Printf("*** FAILED ***")
 		return err
 	}
 	fmt.Printf("*** DONE *** \n")
@@ -82,6 +84,7 @@ func Commit(c *cli.Context) error {
 	cmd := exec.Command("git", "commit", "-m", msg)
 	out, err := cmd.Output()
 	if err != nil {
+		fmt.Printf("*** FAILED *** \n %s \n", out)
 		return err
 	}
 	fmt.Printf("*** DONE *** \n %s \n", out)
@@ -92,6 +95,7 @@ func Push(c *cli.Context) error {
 	cmd := exec.Command("git", "push")
 	_, err := cmd.Output()
 	if err != nil {
+		fmt.Printf("*** FAILED ***")
 		return err
 	}
 	fmt.Printf("*** DONE *** \n")
@@ -104,7 +108,7 @@ func needToAddPrefix(branch string) bool{
 			return true
 		}
 	}
-	return false;
+	return false
 }
 
 func getCurrentBranch() (string, error) {
