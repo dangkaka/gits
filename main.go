@@ -40,7 +40,7 @@ func Add(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("\n*** Success *** %s\n", out)
+	fmt.Printf("\n*** Success *** \n %s \n", out)
 	return nil
 }
 
@@ -54,6 +54,6 @@ func Commit(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("\n*** Success *** %s\n", out)
+	fmt.Printf("\n*** Success *** \n %s \n", out)
 	return nil
 }
