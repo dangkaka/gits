@@ -14,28 +14,32 @@ var jiraProjects = []string{"SHOP-", "FEED-"}
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "gitfmt"
-	app.Description = "Git format"
+	app.Name = "gits"
+	app.Usage = "Git with convenient + short commands"
 	app.Version = "1.0"
 
 	app.Commands = []cli.Command{
 		{
 			Name:   "pull",
+			Aliases: []string{"pl"},
 			Usage:  "Git pull",
 			Action: Pull,
 		},
 		{
 			Name:   "add",
+			Aliases: []string{"a"},
 			Usage:  "Git add",
 			Action: Add,
 		},
 		{
 			Name:   "commit",
+			Aliases: []string{"c"},
 			Usage:  "Git commit",
 			Action: Commit,
 		},
 		{
 			Name:   "push",
+			Aliases: []string{"p"},
 			Usage:  "Git push",
 			Action: Push,
 		},
