@@ -10,7 +10,7 @@ import (
 	"strings"
 )
 
-var hasPrefixProjects = []string{"SHOP-", "FEED-"}
+var jiraProjects = []string{"SHOP-", "FEED-"}
 
 func main() {
 	app := cli.NewApp()
@@ -78,7 +78,7 @@ func Commit(c *cli.Context) error {
 	if err != nil {
 		return errors.New("could not get current branch")
 	}
-	if needToAddPrefix(currentBranch) {
+	if isJiraProject(currentBranch) {
 		msg = currentBranch + ": " + msg
 	}
 	cmd := exec.Command("git", "commit", "-m", msg)
@@ -102,8 +102,8 @@ func Push(c *cli.Context) error {
 	return nil
 }
 
-func needToAddPrefix(branch string) bool{
-	for _, prefix := range hasPrefixProjects {
+func isJiraProject(branch string) bool {
+	for _, prefix := range jiraProjects {
 		if strings.HasPrefix(branch, prefix) {
 			return true
 		}
