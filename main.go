@@ -95,7 +95,11 @@ func Commit(c *cli.Context) error {
 }
 
 func Push(c *cli.Context) error {
-	cmd := exec.Command("git", "push")
+	currentBranch, err := getCurrentBranch()
+	if err != nil {
+		return cli.NewExitError("Could not get current branch", 1)
+	}
+	cmd := exec.Command("git", "push", "origin", currentBranch)
 	out, err := cmd.Output()
 	if err != nil {
 		fmt.Printf("*** FAILED ***")
