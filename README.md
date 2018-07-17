@@ -28,6 +28,7 @@ VERSION:
 
 COMMANDS:
      pull, pl        Git pull
+     status, s       Git status
      add, a          Git add
      commit, c       Git commit
      push, p         Git push
