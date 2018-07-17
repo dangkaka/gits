@@ -4,8 +4,6 @@ Git with convenient + short commands
 
 ## Installation
 
-* Requirements: [Go](https://golang.org/doc/install)
-
 ```
 go install github.com/dangkaka/gits
 ```
