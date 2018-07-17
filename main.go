@@ -42,6 +42,12 @@ func main() {
 			Usage:   "Git push",
 			Action:  Push,
 		},
+		{
+			Name:    "commitpush",
+			Aliases: []string{"cp"},
+			Usage:   "Git commit and push",
+			Action:  CommitAndPush,
+		},
 	}
 
 	err := app.Run(os.Args)
@@ -106,6 +112,18 @@ func Push(c *cli.Context) error {
 		return err
 	}
 	fmt.Printf("*** DONE *** \n %s \n", out)
+	return nil
+}
+
+func CommitAndPush(c *cli.Context) error {
+	err := Commit(c)
+	if err != nil {
+		return err
+	}
+	err = Push(c)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
