@@ -26,6 +26,12 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
+			Name:    "status",
+			Aliases: []string{"s"},
+			Usage:   "Git status",
+			Action:  Status,
+		},
+		{
 			Name:    "pull",
 			Aliases: []string{"pl"},
 			Usage:   "Git pull",
@@ -63,14 +69,25 @@ func main() {
 	}
 }
 
+func Status(c *cli.Context) error {
+	cmd := exec.Command("git", "status")
+	out, err := cmd.CombinedOutput()
+	if err != nil {
+		fmt.Printf(FAILEDWITHOUTPUT, out)
+		return err
+	}
+	fmt.Printf(SUCCESSWITHOUTPUT, out)
+	return nil
+}
+
 func Pull(c *cli.Context) error {
 	cmd := exec.Command("git", "pull")
 	_, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("*** FAILED ***")
+		fmt.Printf(FAILED)
 		return err
 	}
-	fmt.Printf("*** DONE *** \n")
+	fmt.Printf(SUCCESS)
 	return nil
 }
 
