@@ -9,6 +9,13 @@ import (
 	"strings"
 )
 
+const (
+	FAILED            = `¯\_(ツ)_/¯` + "\n"
+	SUCCESS           = `ᕙ_(⇀‸↼)_ᕗ` + "\n"
+	FAILEDWITHOUTPUT  = `¯\_(ツ)_/¯` + " \n %s \n"
+	SUCCESSWITHOUTPUT = `ᕙ_(⇀‸↼)_ᕗ` + " \n %s \n"
+)
+
 var jiraProjects = []string{"SHOP-", "FEED-"}
 
 func main() {
@@ -71,10 +78,10 @@ func Add(c *cli.Context) error {
 	cmd := exec.Command("git", "add", ".")
 	_, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("*** FAILED ***")
+		fmt.Printf(FAILED)
 		return err
 	}
-	fmt.Printf("*** DONE *** \n")
+	fmt.Printf(SUCCESS)
 	return nil
 }
 
@@ -93,10 +100,10 @@ func Commit(c *cli.Context) error {
 	cmd := exec.Command("git", "commit", "-m", msg)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("*** FAILED *** \n %s \n", out)
+		fmt.Printf(FAILEDWITHOUTPUT, out)
 		return err
 	}
-	fmt.Printf("*** DONE *** \n %s \n", out)
+	fmt.Printf(SUCCESSWITHOUTPUT, out)
 	return nil
 }
 
@@ -108,10 +115,10 @@ func Push(c *cli.Context) error {
 	cmd := exec.Command("git", "push", "origin", currentBranch)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf("*** FAILED ***")
+		fmt.Printf(FAILEDWITHOUTPUT, out)
 		return err
 	}
-	fmt.Printf("*** DONE *** \n %s \n", out)
+	fmt.Printf(SUCCESSWITHOUTPUT, out)
 	return nil
 }
 
