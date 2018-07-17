@@ -97,12 +97,12 @@ func Commit(c *cli.Context) error {
 
 func Push(c *cli.Context) error {
 	cmd := exec.Command("git", "push")
-	_, err := cmd.Output()
+	out, err := cmd.Output()
 	if err != nil {
 		fmt.Printf("*** FAILED ***")
 		return err
 	}
-	fmt.Printf("*** DONE *** \n")
+	fmt.Printf("*** DONE *** \n %s \n", out)
 	return nil
 }
 
