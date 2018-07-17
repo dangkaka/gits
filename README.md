@@ -15,7 +15,7 @@ Make sure $GOPATH/bin is added to your $PATH .
 
 ## Usage
 
-`$gits -h`
+`$ gits -h`
 ```
 NAME:
    gits - Git with convenient + short commands
