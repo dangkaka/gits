@@ -17,6 +17,11 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
+			Name:   "pull",
+			Usage:  "Git pull",
+			Action: Pull,
+		},
+		{
 			Name:   "add",
 			Usage:  "Git add",
 			Action: Add,
@@ -37,6 +42,16 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func Pull(c *cli.Context) error {
+	cmd := exec.Command("git", "pull")
+	_, err := cmd.Output()
+	if err != nil {
+		return err
+	}
+	fmt.Printf("*** DONE *** \n")
+	return nil
 }
 
 func Add(c *cli.Context) error {
