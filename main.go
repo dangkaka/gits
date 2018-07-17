@@ -26,6 +26,11 @@ func main() {
 			Usage:  "Git commit",
 			Action: Commit,
 		},
+		{
+			Name:   "push",
+			Usage:  "Git push",
+			Action: Push,
+		},
 	}
 
 	err := app.Run(os.Args)
@@ -40,7 +45,7 @@ func Add(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("\n*** Success *** \n %s \n", out)
+	fmt.Printf("*** DONE *** \n %s \n", out)
 	return nil
 }
 
@@ -54,6 +59,16 @@ func Commit(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
-	fmt.Printf("\n*** Success *** \n %s \n", out)
+	fmt.Printf("*** DONE *** \n %s \n", out)
+	return nil
+}
+
+func Push(c *cli.Context) error {
+	cmd := exec.Command("git", "push")
+	out, err := cmd.Output()
+	if err != nil {
+		return err
+	}
+	fmt.Printf("*** DONE *** \n %s \n", out)
 	return nil
 }
