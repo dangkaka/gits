@@ -61,6 +61,11 @@ func main() {
 			Usage:   "Git commit and push",
 			Action:  CommitAndPush,
 		},
+		{
+			Name:    "gitignore",
+			Usage:   "Add default .gitignore file",
+			Action:  AddGitIgnore,
+		},
 	}
 
 	err := app.Run(os.Args)
@@ -148,6 +153,17 @@ func CommitAndPush(c *cli.Context) error {
 	if err != nil {
 		return err
 	}
+	return nil
+}
+
+func AddGitIgnore(c *cli.Context) error {
+	file, err := os.OpenFile(".gitignore", os.O_CREATE|os.O_RDWR|os.O_TRUNC, 0666)
+	if err != nil {
+		fmt.Printf(FAILEDWITHOUTPUT, err)
+		return err
+	}
+	file.WriteString(".idea")
+	file.WriteString("\n")
 	return nil
 }
 

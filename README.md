@@ -29,6 +29,7 @@ COMMANDS:
      commit, c       Git commit
      push, p         Git push
      commitpush, cp  Git commit and push
+     gitignore       Add default .gitignore file
      help, h         Shows a list of commands or help for one command
 
 GLOBAL OPTIONS:
