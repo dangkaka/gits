@@ -52,7 +52,7 @@ func main() {
 
 func Pull(c *cli.Context) error {
 	cmd := exec.Command("git", "pull")
-	_, err := cmd.Output()
+	_, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf("*** FAILED ***")
 		return err
@@ -63,7 +63,7 @@ func Pull(c *cli.Context) error {
 
 func Add(c *cli.Context) error {
 	cmd := exec.Command("git", "add", ".")
-	_, err := cmd.Output()
+	_, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf("*** FAILED ***")
 		return err
@@ -85,7 +85,7 @@ func Commit(c *cli.Context) error {
 		msg = currentBranch + ": " + msg
 	}
 	cmd := exec.Command("git", "commit", "-m", msg)
-	out, err := cmd.Output()
+	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf("*** FAILED *** \n %s \n", out)
 		return err
@@ -100,7 +100,7 @@ func Push(c *cli.Context) error {
 		return cli.NewExitError("Could not get current branch", 1)
 	}
 	cmd := exec.Command("git", "push", "origin", currentBranch)
-	out, err := cmd.Output()
+	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf("*** FAILED ***")
 		return err
