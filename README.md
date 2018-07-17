@@ -2,11 +2,9 @@
 
 Git with convenient + short commands
 
-## Requirements
-
-* Go 1.9.2+
-
 ## Installation
+
+* Requirements: [Go](https://golang.org/doc/install)
 
 ```
 go install github.com/dangkaka/gits
