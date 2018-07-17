@@ -1,7 +1,6 @@
 package main
 
 import (
-	"errors"
 	"fmt"
 	"github.com/urfave/cli"
 	"log"
@@ -20,28 +19,28 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
-			Name:   "pull",
+			Name:    "pull",
 			Aliases: []string{"pl"},
-			Usage:  "Git pull",
-			Action: Pull,
+			Usage:   "Git pull",
+			Action:  Pull,
 		},
 		{
-			Name:   "add",
+			Name:    "add",
 			Aliases: []string{"a"},
-			Usage:  "Git add",
-			Action: Add,
+			Usage:   "Git add",
+			Action:  Add,
 		},
 		{
-			Name:   "commit",
+			Name:    "commit",
 			Aliases: []string{"c"},
-			Usage:  "Git commit",
-			Action: Commit,
+			Usage:   "Git commit",
+			Action:  Commit,
 		},
 		{
-			Name:   "push",
+			Name:    "push",
 			Aliases: []string{"p"},
-			Usage:  "Git push",
-			Action: Push,
+			Usage:   "Git push",
+			Action:  Push,
 		},
 	}
 
@@ -76,11 +75,11 @@ func Add(c *cli.Context) error {
 func Commit(c *cli.Context) error {
 	msg := c.Args().Get(0)
 	if msg == "" {
-		return errors.New("empty commit message")
+		return cli.NewExitError("Empty commit message", 1)
 	}
 	currentBranch, err := getCurrentBranch()
 	if err != nil {
-		return errors.New("could not get current branch")
+		return cli.NewExitError("Could not get current branch", 1)
 	}
 	if isJiraProject(currentBranch) {
 		msg = currentBranch + ": " + msg
