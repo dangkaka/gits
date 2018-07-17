@@ -1,13 +1,16 @@
 package main
 
 import (
+	"errors"
+	"fmt"
 	"github.com/urfave/cli"
 	"log"
 	"os"
 	"os/exec"
-	"errors"
-	"fmt"
+	"strings"
 )
+
+var hasPrefixProjects = []string{"SHOP-", "FEED-"}
 
 func main() {
 	app := cli.NewApp()
@@ -67,7 +70,14 @@ func Add(c *cli.Context) error {
 func Commit(c *cli.Context) error {
 	msg := c.Args().Get(0)
 	if msg == "" {
-		return errors.New("Empty commit message")
+		return errors.New("empty commit message")
+	}
+	currentBranch, err := getCurrentBranch()
+	if err != nil {
+		return errors.New("could not get current branch")
+	}
+	if needToAddPrefix(currentBranch) {
+		msg = currentBranch + ": " + msg
 	}
 	cmd := exec.Command("git", "commit", "-m", msg)
 	out, err := cmd.Output()
@@ -86,4 +96,21 @@ func Push(c *cli.Context) error {
 	}
 	fmt.Printf("*** DONE *** \n")
 	return nil
+}
+
+func needToAddPrefix(branch string) bool{
+	for _, prefix := range hasPrefixProjects {
+		if strings.HasPrefix(branch, prefix) {
+			return true
+		}
+	}
+	return false;
+}
+
+func getCurrentBranch() (string, error) {
+	out, err := exec.Command("git", "rev-parse", "--abbrev-ref", "HEAD").Output()
+	if err != nil {
+		return "", err
+	}
+	return string(out), nil
 }
