@@ -66,6 +66,12 @@ func main() {
 			Aliases: []string{"cp"},
 			Usage:   "Git commit and push",
 			Action:  CommitAndPush,
+			Flags: []cli.Flag{
+				cli.BoolFlag{
+					Name: "f",
+					Usage: "force push",
+				},
+			},
 		},
 		{
 			Name:    "gitignore",
