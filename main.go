@@ -10,8 +10,6 @@ import (
 )
 
 const (
-	FAILED            = `¯\_(ツ)_/¯` + "\n"
-	SUCCESS           = `ᕙ_(⇀‸↼)_ᕗ` + "\n"
 	FAILEDWITHOUTPUT  = `¯\_(ツ)_/¯` + " \n %s \n"
 	SUCCESSWITHOUTPUT = `ᕙ_(⇀‸↼)_ᕗ` + " \n %s \n"
 )
@@ -110,23 +108,23 @@ func Pull(c *cli.Context) error {
 		args = append(args, "--rebase")
 	}
 	cmd := exec.Command("git", args...)
-	_, err := cmd.CombinedOutput()
+	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf(FAILED)
+		fmt.Printf(FAILEDWITHOUTPUT, out)
 		return err
 	}
-	fmt.Printf(SUCCESS)
+	fmt.Printf(SUCCESSWITHOUTPUT, out)
 	return nil
 }
 
 func Add(c *cli.Context) error {
 	cmd := exec.Command("git", "add", ".")
-	_, err := cmd.CombinedOutput()
+	out, err := cmd.CombinedOutput()
 	if err != nil {
-		fmt.Printf(FAILED)
+		fmt.Printf(FAILEDWITHOUTPUT, out)
 		return err
 	}
-	fmt.Printf(SUCCESS)
+	fmt.Printf(SUCCESSWITHOUTPUT, out)
 	return nil
 }
 
