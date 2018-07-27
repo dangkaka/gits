@@ -36,6 +36,12 @@ func main() {
 			Aliases: []string{"pl"},
 			Usage:   "Git pull",
 			Action:  Pull,
+			Flags: []cli.Flag{
+				cli.BoolFlag{
+					Name: "rebase, r",
+					Usage: "git pull rebase",
+				},
+			},
 		},
 		{
 			Name:    "add",
@@ -98,7 +104,12 @@ func Status(c *cli.Context) error {
 }
 
 func Pull(c *cli.Context) error {
-	cmd := exec.Command("git", "pull")
+	args := []string{"pull"}
+	isRebase := c.Bool("r")
+	if isRebase {
+		args = append(args, "--rebase")
+	}
+	cmd := exec.Command("git", args...)
 	_, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf(FAILED)
