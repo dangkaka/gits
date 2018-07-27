@@ -54,6 +54,12 @@ func main() {
 			Aliases: []string{"p"},
 			Usage:   "Git push",
 			Action:  Push,
+			Flags: []cli.Flag{
+				cli.BoolFlag{
+					Name: "f",
+					Usage: "force push",
+					},
+			},
 		},
 		{
 			Name:    "commitpush",
@@ -134,7 +140,12 @@ func Push(c *cli.Context) error {
 	if err != nil {
 		return cli.NewExitError("Could not get current branch", 1)
 	}
-	cmd := exec.Command("git", "push", "origin", currentBranch)
+	args := []string{"push", "origin", currentBranch}
+	isForce := c.Bool("f")
+	if isForce {
+		args = append(args, "-f")
+	}
+	cmd := exec.Command("git", args...)
 	out, err := cmd.CombinedOutput()
 	if err != nil {
 		fmt.Printf(FAILEDWITHOUTPUT, out)
