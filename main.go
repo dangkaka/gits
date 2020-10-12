@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"github.com/urfave/cli"
 	"log"
 	"os"
 	"os/exec"
 	"strings"
+
+	"github.com/urfave/cli"
 )
 
 const (
@@ -14,7 +15,7 @@ const (
 	SUCCESSWITHOUTPUT = `ᕙ_(⇀‸↼)_ᕗ` + " \n %s \n"
 )
 
-var jiraProjects = []string{"SHOP-", "FEED-"}
+var jiraProjects = []string{"SHOP-", "FEED-", "COSTA-"}
 
 func main() {
 	app := cli.NewApp()
@@ -36,7 +37,7 @@ func main() {
 			Action:  Pull,
 			Flags: []cli.Flag{
 				cli.BoolFlag{
-					Name: "rebase, r",
+					Name:  "rebase, r",
 					Usage: "git pull rebase",
 				},
 			},
@@ -60,9 +61,9 @@ func main() {
 			Action:  Push,
 			Flags: []cli.Flag{
 				cli.BoolFlag{
-					Name: "f",
+					Name:  "f",
 					Usage: "force push",
-					},
+				},
 			},
 		},
 		{
@@ -72,15 +73,15 @@ func main() {
 			Action:  CommitAndPush,
 			Flags: []cli.Flag{
 				cli.BoolFlag{
-					Name: "f",
+					Name:  "f",
 					Usage: "force push",
 				},
 			},
 		},
 		{
-			Name:    "gitignore",
-			Usage:   "Add default .gitignore file",
-			Action:  AddGitIgnore,
+			Name:   "gitignore",
+			Usage:  "Add default .gitignore file",
+			Action: AddGitIgnore,
 		},
 	}
 
