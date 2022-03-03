@@ -15,7 +15,7 @@ const (
 	SUCCESSWITHOUTPUT = `ᕙ_(⇀‸↼)_ᕗ` + " \n %s \n"
 )
 
-var jiraProjects = []string{"SHOP-", "FEED-", "COSTA-"}
+var jiraProjects = []string{"SHOP-", "FEED-", "COSTA-", "PLAT-"}
 
 func main() {
 	app := cli.NewApp()
