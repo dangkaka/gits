@@ -21,7 +21,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "gits"
 	app.Usage = "Git with convenient + short commands"
-	app.Version = "1.3"
+	app.Version = "1.4"
 
 	app.Commands = []cli.Command{
 		{
